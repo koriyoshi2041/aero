@@ -1,0 +1,87 @@
+{
+  "config": {
+    "source_model": "resnet56",
+    "target_models": [
+      "vgg16_bn",
+      "mobilenetv2_x1_0",
+      "shufflenetv2_x1_0",
+      "resnet20"
+    ],
+    "attacks": [
+      "ifgsm",
+      "mifgsm",
+      "difgsm",
+      "midifgsm",
+      "ff",
+      "ff_di"
+    ],
+    "eps": 0.03137254901960784,
+    "alpha": 0.00784313725490196,
+    "steps": 10,
+    "num_samples": 300,
+    "batch_size": 50
+  },
+  "timestamp": "2026-02-04T18:58:33.230436",
+  "attacks": {
+    "ifgsm": {
+      "whitebox": 86.66666646798453,
+      "transfer": {
+        "vgg16_bn": 52.66666611035665,
+        "mobilenetv2_x1_0": 55.33333271741867,
+        "shufflenetv2_x1_0": 57.00000027815501,
+        "resnet20": 61.33333444595337
+      },
+      "avg_transfer": 56.583333387970924
+    },
+    "mifgsm": {
+      "whitebox": 85.33333241939545,
+      "transfer": {
+        "vgg16_bn": 53.333333134651184,
+        "mobilenetv2_x1_0": 58.00000031789144,
+        "shufflenetv2_x1_0": 55.999999245007835,
+        "resnet20": 62.00000246365865
+      },
+      "avg_transfer": 57.333333790302284
+    },
+    "difgsm": {
+      "whitebox": 80.99999924500784,
+      "transfer": {
+        "vgg16_bn": 52.666667103767395,
+        "mobilenetv2_x1_0": 56.666666766007744,
+        "shufflenetv2_x1_0": 57.00000027815501,
+        "resnet20": 61.66666646798452
+      },
+      "avg_transfer": 57.00000015397867
+    },
+    "midifgsm": {
+      "whitebox": 81.6666672627131,
+      "transfer": {
+        "vgg16_bn": 53.66666615009308,
+        "mobilenetv2_x1_0": 59.00000035762787,
+        "shufflenetv2_x1_0": 57.666666309038796,
+        "resnet20": 63.33333353201548
+      },
+      "avg_transfer": 58.4166665871938
+    },
+    "ff": {
+      "whitebox": 85.33333241939545,
+      "transfer": {
+        "vgg16_bn": 53.333333134651184,
+        "mobilenetv2_x1_0": 58.333333333333336,
+        "shufflenetv2_x1_0": 55.999999245007835,
+        "resnet20": 62.00000246365865
+      },
+      "avg_transfer": 57.41666704416276
+    },
+    "ff_di": {
+      "whitebox": 80.99999924500784,
+      "transfer": {
+        "vgg16_bn": 53.66666615009308,
+        "mobilenetv2_x1_0": 58.00000180800756,
+        "shufflenetv2_x1_0": 57.3333332935969,
+        "resnet20": 63.33333452542623
+      },
+      "avg_transfer": 58.083333944280945
+    }
+  }
+}

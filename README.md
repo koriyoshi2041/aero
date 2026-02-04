@@ -126,6 +126,25 @@ Analyzing how progressive layer freezing affects transferability:
 - 📊 **Stage 1 is optimal balance**: 58.5% whitebox with 21.7% avg transfer
 - 💡 **Insight**: FreezeOut helps whitebox more than transfer; early unfrozen layers are key for transferability
 
+### Comprehensive Benchmark (2024-02-04)
+
+Comparing FF-FGSM with baselines (untargeted attack, misclassification rate):
+
+| Attack | Whitebox | Avg Transfer | vgg16_bn | mobilenetv2 | shufflenetv2 | resnet20 |
+|--------|----------|--------------|----------|-------------|--------------|----------|
+| I-FGSM | 86.7% | 56.6% | 52.7% | 55.3% | 57.0% | 61.3% |
+| MI-FGSM | 85.3% | 57.3% | 53.3% | 58.0% | 56.0% | 62.0% |
+| DI-FGSM | 81.0% | 57.0% | 52.7% | 56.7% | 57.0% | 61.7% |
+| **MI-DI-FGSM** | 81.7% | **58.4%** | 53.7% | **59.0%** | 57.7% | **63.3%** |
+| FF | 85.3% | 57.4% | 53.3% | 58.3% | 56.0% | 62.0% |
+| **FF-DI** | 81.0% | **58.1%** | 53.7% | 58.0% | 57.3% | **63.3%** |
+
+**Key Findings:**
+- 🏆 **MI-DI-FGSM is best** (58.4% avg transfer)
+- 🥈 **FF-DI is very close** (58.1%) - FreezeOut + Input Diversity works well
+- ✅ **FF achieves similar transfer to MI-FGSM** (57.4% vs 57.3%)
+- 💡 **Combining FF with DI** closes the gap to state-of-the-art
+
 ## Project Structure
 
 ```
