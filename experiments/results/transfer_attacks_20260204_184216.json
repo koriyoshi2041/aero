@@ -1,0 +1,151 @@
+{
+  "config": {
+    "source_model": "resnet56",
+    "target_models": [
+      "vgg16_bn",
+      "mobilenetv2_x1_0",
+      "shufflenetv2_x1_0"
+    ],
+    "attacks": [
+      "ifgsm",
+      "mifgsm",
+      "difgsm",
+      "tifgsm",
+      "midifgsm"
+    ],
+    "eps": "0.03137254901960784",
+    "alpha": "0.00784313725490196",
+    "steps": 10,
+    "num_samples": 200,
+    "batch_size": 25,
+    "negative_strategy": "most_confusing"
+  },
+  "timestamp": "2026-02-04T18:41:31.203226",
+  "attacks": {
+    "ifgsm": {
+      "whitebox": {
+        "target_success": 0.5649999976158142,
+        "misclass_rate": 0.7350000068545341
+      },
+      "transfer": {
+        "vgg16_bn": {
+          "target_success": 0.11499999836087227,
+          "misclass_rate": 0.4149999972432852
+        },
+        "mobilenetv2_x1_0": {
+          "target_success": 0.17999999690800905,
+          "misclass_rate": 0.45499999448657036
+        },
+        "shufflenetv2_x1_0": {
+          "target_success": 0.10499999858438969,
+          "misclass_rate": 0.470000009983778
+        }
+      },
+      "avg_transfer_rate": 0.13333333128442368,
+      "perturbation": {
+        "l2": 49.54392099380493,
+        "linf": 2.429065704345703
+      }
+    },
+    "mifgsm": {
+      "whitebox": {
+        "target_success": 0.534999992698431,
+        "misclass_rate": 0.7000000029802322
+      },
+      "transfer": {
+        "vgg16_bn": {
+          "target_success": 0.11499999836087227,
+          "misclass_rate": 0.4250000026077032
+        },
+        "mobilenetv2_x1_0": {
+          "target_success": 0.1849999986588955,
+          "misclass_rate": 0.4649999961256981
+        },
+        "shufflenetv2_x1_0": {
+          "target_success": 0.11999999731779099,
+          "misclass_rate": 0.48000000417232513
+        }
+      },
+      "avg_transfer_rate": 0.1399999981125196,
+      "perturbation": {
+        "l2": 49.54503536224365,
+        "linf": 2.429065704345703
+      }
+    },
+    "difgsm": {
+      "whitebox": {
+        "target_success": 0.4949999935925007,
+        "misclass_rate": 0.7000000029802322
+      },
+      "transfer": {
+        "vgg16_bn": {
+          "target_success": 0.10999999847263098,
+          "misclass_rate": 0.40999999828636646
+        },
+        "mobilenetv2_x1_0": {
+          "target_success": 0.1649999963119626,
+          "misclass_rate": 0.4749999977648258
+        },
+        "shufflenetv2_x1_0": {
+          "target_success": 0.10999999847263098,
+          "misclass_rate": 0.48000000417232513
+        }
+      },
+      "avg_transfer_rate": 0.12833333108574152,
+      "perturbation": {
+        "l2": 49.542911529541016,
+        "linf": 2.429065704345703
+      }
+    },
+    "tifgsm": {
+      "whitebox": {
+        "target_success": 0.5049999989569187,
+        "misclass_rate": 0.6700000166893005
+      },
+      "transfer": {
+        "vgg16_bn": {
+          "target_success": 0.08999999891966581,
+          "misclass_rate": 0.38000000454485416
+        },
+        "mobilenetv2_x1_0": {
+          "target_success": 0.15000000037252903,
+          "misclass_rate": 0.4349999949336052
+        },
+        "shufflenetv2_x1_0": {
+          "target_success": 0.0999999986961484,
+          "misclass_rate": 0.48000000417232513
+        }
+      },
+      "avg_transfer_rate": 0.11333333266278107,
+      "perturbation": {
+        "l2": 49.54451894760132,
+        "linf": 2.429065704345703
+      }
+    },
+    "midifgsm": {
+      "whitebox": {
+        "target_success": 0.4699999950826168,
+        "misclass_rate": 0.6900000125169754
+      },
+      "transfer": {
+        "vgg16_bn": {
+          "target_success": 0.12499999720603228,
+          "misclass_rate": 0.4299999978393316
+        },
+        "mobilenetv2_x1_0": {
+          "target_success": 0.18999999947845936,
+          "misclass_rate": 0.4749999977648258
+        },
+        "shufflenetv2_x1_0": {
+          "target_success": 0.12499999813735485,
+          "misclass_rate": 0.49000000581145287
+        }
+      },
+      "avg_transfer_rate": 0.1466666649406155,
+      "perturbation": {
+        "l2": 49.544970989227295,
+        "linf": 2.429065704345703
+      }
+    }
+  }
+}

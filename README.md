@@ -19,7 +19,7 @@ This project studies **FreezeOut + FGSM (FF)** attack methods, focusing on:
 - [x] Transfer bottleneck analysis
 
 ### 🔄 In Progress
-- [ ] Transfer enhancement techniques (MI, DI, TI)
+- [x] Transfer enhancement techniques (MI, DI, TI) ✅
 - [ ] FreezeOut stage-wise transfer analysis
 
 ### 📋 Planned
@@ -81,6 +81,28 @@ This project studies **FreezeOut + FGSM (FF)** attack methods, focusing on:
 2. Translation Invariance (TI-FGSM)
 3. Momentum (MI-FGSM) for gradient accumulation
 4. Multi-model ensemble attacks
+
+### Transfer Enhancement Experiment (2024-02-04)
+
+Comparing different transfer attack methods with `most_confusing` target strategy:
+
+| Attack | Whitebox | Avg Transfer | vgg16_bn | mobilenetv2 | shufflenetv2 |
+|--------|----------|--------------|----------|-------------|--------------|
+| I-FGSM | 56.5% | 13.3% | 11.5% | 18.0% | 10.5% |
+| **MI-FGSM** | 53.5% | 14.0% | 11.5% | 18.5% | 12.0% |
+| DI-FGSM | 49.5% | 12.8% | 11.0% | 16.5% | 11.0% |
+| TI-FGSM | 50.5% | 11.3% | 9.0% | 15.0% | 10.0% |
+| **MI-DI-FGSM** | 47.0% | **14.7%** | **12.5%** | **19.0%** | **12.5%** |
+
+<p align="center">
+  <img src="experiments/results/transfer_attack_comparison.png" width="80%" />
+</p>
+
+**Key Findings:**
+- ✅ **MI-DI-FGSM achieves best transfer rate** (14.7%) by combining momentum and input diversity
+- ✅ **MI-FGSM is second best** (14.0%) - momentum alone helps significantly
+- ⚠️ **TI-FGSM performs worst** (11.3%) - translation invariance alone not effective here
+- 📊 **Tradeoff observed**: Higher transfer often comes with lower whitebox success
 
 ## Project Structure
 
