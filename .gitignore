@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# Data
+data/
+experiments/data/
+
+# Model checkpoints (too large)
+experiments/checkpoints/
+*.pth
+*.pt
+*.ckpt
+
+# Results (keep structure, ignore large files)
+# experiments/results/*.json  # keep these
+# experiments/results/*.png   # keep these
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
