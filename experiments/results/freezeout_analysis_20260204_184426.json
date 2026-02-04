@@ -1,0 +1,63 @@
+{
+  "config": {
+    "source_model": "resnet56",
+    "target_models": [
+      "vgg16_bn",
+      "mobilenetv2_x1_0",
+      "shufflenetv2_x1_0"
+    ],
+    "freeze_epochs": 5,
+    "eps": "0.03137254901960784",
+    "alpha": "0.00784313725490196",
+    "steps": 15,
+    "num_samples": 200,
+    "batch_size": 50
+  },
+  "stages": {
+    "0": {
+      "whitebox": 40.00000059604645,
+      "transfer": {
+        "vgg16_bn": 18.000000156462193,
+        "mobilenetv2_x1_0": 20.000000298023224,
+        "shufflenetv2_x1_0": 16.499999724328518
+      },
+      "avg_transfer": 18.166666726271313
+    },
+    "1": {
+      "whitebox": 58.50000083446503,
+      "transfer": {
+        "vgg16_bn": 22.499999403953552,
+        "mobilenetv2_x1_0": 25.5000002682209,
+        "shufflenetv2_x1_0": 16.999999806284904
+      },
+      "avg_transfer": 21.666666492819786
+    },
+    "2": {
+      "whitebox": 61.99999898672104,
+      "transfer": {
+        "vgg16_bn": 22.999999672174454,
+        "mobilenetv2_x1_0": 25.5000002682209,
+        "shufflenetv2_x1_0": 17.49999988824129
+      },
+      "avg_transfer": 21.999999942878883
+    },
+    "3": {
+      "whitebox": 63.5000005364418,
+      "transfer": {
+        "vgg16_bn": 22.999999672174454,
+        "mobilenetv2_x1_0": 25.49999989569187,
+        "shufflenetv2_x1_0": 18.500000052154064
+      },
+      "avg_transfer": 22.333333206673462
+    },
+    "4": {
+      "whitebox": 65.99999964237213,
+      "transfer": {
+        "vgg16_bn": 22.999999672174454,
+        "mobilenetv2_x1_0": 25.49999989569187,
+        "shufflenetv2_x1_0": 17.999999783933163
+      },
+      "avg_transfer": 22.16666645059983
+    }
+  }
+}

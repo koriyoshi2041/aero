@@ -20,7 +20,7 @@ This project studies **FreezeOut + FGSM (FF)** attack methods, focusing on:
 
 ### 🔄 In Progress
 - [x] Transfer enhancement techniques (MI, DI, TI) ✅
-- [ ] FreezeOut stage-wise transfer analysis
+- [x] FreezeOut stage-wise transfer analysis ✅
 
 ### 📋 Planned
 - [ ] Complete experiment report
@@ -103,6 +103,28 @@ Comparing different transfer attack methods with `most_confusing` target strateg
 - ✅ **MI-FGSM is second best** (14.0%) - momentum alone helps significantly
 - ⚠️ **TI-FGSM performs worst** (11.3%) - translation invariance alone not effective here
 - 📊 **Tradeoff observed**: Higher transfer often comes with lower whitebox success
+
+### FreezeOut Stage Analysis (2024-02-04)
+
+Analyzing how progressive layer freezing affects transferability:
+
+| Stage | Frozen Groups | Whitebox | vgg16_bn | mobilenetv2 | shufflenetv2 |
+|-------|---------------|----------|----------|-------------|--------------|
+| 0 | 0 | 40.0% | 18.0% | 20.0% | 16.5% |
+| 1 | 1 | 58.5% | **22.5%** | **25.5%** | 17.0% |
+| 2 | 2 | 62.0% | 23.0% | 25.5% | 17.5% |
+| 3 | 3 | 63.5% | 23.0% | 25.5% | 18.5% |
+| 4 | 4 | 66.0% | 23.0% | 25.5% | 18.0% |
+
+<p align="center">
+  <img src="experiments/results/freezeout_stage_analysis.png" width="90%" />
+</p>
+
+**Key Findings:**
+- ✅ **Early stages (0-1) contribute most to transfer** - Stage 1 achieves ~22% avg transfer
+- ✅ **Later stages mainly improve whitebox** - Transfer saturates after stage 1-2
+- 📊 **Stage 1 is optimal balance**: 58.5% whitebox with 21.7% avg transfer
+- 💡 **Insight**: FreezeOut helps whitebox more than transfer; early unfrozen layers are key for transferability
 
 ## Project Structure
 
