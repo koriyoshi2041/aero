@@ -1,39 +1,39 @@
 # AERO: Adversarial Example Research for Optimization
 
-> 🚧 **Work in Progress** - 对抗样本攻击与迁移性研究
+> 🚧 **Work in Progress** - Research on adversarial attacks and transferability
 
-## 项目概述
+## Overview
 
-本项目研究 **FreezeOut + FGSM (FF)** 攻击方法，重点探索：
-1. **Negative 样本策略** - 不同目标选择策略对攻击效果的影响
-2. **迁移性能** - 对抗样本从源模型迁移到目标模型的能力
+This project studies **FreezeOut + FGSM (FF)** attack methods, focusing on:
+1. **Negative Sample Strategies** - Impact of different target selection strategies on attack effectiveness
+2. **Transferability** - Ability of adversarial examples to transfer from source to target models
 
-## 当前进度
+## Progress
 
-### ✅ 已完成
-- [x] 实验框架搭建
-- [x] 6 种 Negative 策略实现
-- [x] 19 个预训练模型下载 (CIFAR-10)
-- [x] 初步实验完成
-- [x] 结果可视化
+### ✅ Completed
+- [x] Experiment framework
+- [x] 6 negative sample strategies implemented
+- [x] 19 pretrained models downloaded (CIFAR-10)
+- [x] Initial experiments completed
+- [x] Result visualization
+- [x] Transfer bottleneck analysis
 
-### 🔄 进行中
-- [ ] 迁移性能瓶颈分析
-- [ ] 添加迁移增强技术 (MI, DI, TI)
-- [ ] FreezeOut 各阶段迁移性分析
+### 🔄 In Progress
+- [ ] Transfer enhancement techniques (MI, DI, TI)
+- [ ] FreezeOut stage-wise transfer analysis
 
-### 📋 计划中
-- [ ] 完整实验报告
-- [ ] 论文相关分析
+### 📋 Planned
+- [ ] Complete experiment report
+- [ ] Paper-related analysis
 
-## 实验结果
+## Experiment Results
 
-### Negative 策略对比 (2024-02-04)
+### Negative Strategy Comparison (2024-02-04)
 
-**实验配置:**
-- 源模型: ResNet-56 (94.22% acc)
-- 目标模型: VGG16-BN, MobileNetV2, ShuffleNetV2
-- 攻击: FF, ε=8/255, 10 steps, 500 samples
+**Configuration:**
+- Source Model: ResNet-56 (94.22% acc)
+- Target Models: VGG16-BN, MobileNetV2, ShuffleNetV2
+- Attack: FF, ε=8/255, 10 steps, 500 samples
 
 **Target Success Rate:**
 
@@ -46,7 +46,7 @@
 | least_likely | 27.4% | 3.8% | 3.4% | 3.2% |
 | dynamic_topk | 27.4% | 3.8% | 3.4% | 3.2% |
 
-### 可视化
+### Visualization
 
 <p align="center">
   <img src="experiments/results/strategy_comparison.png" width="80%" />
@@ -56,78 +56,83 @@
   <img src="experiments/results/transfer_heatmap.png" width="60%" />
 </p>
 
-### 关键发现
+### Key Findings
 
-1. **most_confusing 策略最优** - 选择模型最容易混淆的类别（非真实类别中概率最高的）效果最好
-2. **least_likely 策略最差** - 选择最不可能的类别反而最难攻击成功
-3. **迁移率普遍较低** (~3-20%) - 需要进一步分析和优化
+1. **most_confusing strategy is optimal** - Selecting the class the model is most likely to confuse (highest probability among non-true classes) works best
+2. **least_likely strategy is worst** - Selecting the least likely class makes attacks harder to succeed
+3. **Transfer rates are generally low** (~3-20%) - Requires further analysis and optimization
 
-### 迁移瓶颈分析 (2024-02-04)
+### Transfer Bottleneck Analysis (2024-02-04)
 
-**梯度相似性分析：**
+**Gradient Similarity Analysis:**
 | Target Model | Cosine Similarity | Sign Match Rate |
 |--------------|-------------------|-----------------|
 | vgg16_bn | 0.086 | 52.1% |
 | mobilenetv2 | 0.111 | 52.7% |
 | shufflenetv2 | 0.108 | 52.8% |
 
-**关键发现：**
-- ⚠️ **梯度相似度极低** (~0.09-0.11) - 这是迁移率低的主要原因
-- ⚠️ **Sign Match ~52%** - 接近随机，说明梯度方向几乎不相关
-- ✅ **扰动 95.8% 是低频** - 低频扰动通常更容易迁移
+**Key Findings:**
+- ⚠️ **Extremely low gradient similarity** (~0.09-0.11) - Main cause of low transfer rate
+- ⚠️ **Sign Match ~52%** - Nearly random, indicating almost uncorrelated gradient directions
+- ✅ **95.8% low-frequency perturbations** - Low-frequency perturbations typically transfer better
 
-**改进方向：**
-1. 使用输入变换 (DI, TI, SI) 增加梯度多样性
-2. 使用多模型集成攻击
-3. 使用 Momentum 累积梯度 (MI-FGSM)
+**Improvement Directions:**
+1. Input Diversity (DI-FGSM) to increase gradient diversity
+2. Translation Invariance (TI-FGSM)
+3. Momentum (MI-FGSM) for gradient accumulation
+4. Multi-model ensemble attacks
 
-## 项目结构
+## Project Structure
 
 ```
 aero/
 ├── README.md
 ├── experiments/
-│   ├── negative_strategies.py    # 6 种 Negative 策略实现
-│   ├── hub_models.py             # torch.hub 模型加载器
-│   ├── run_ff_experiment.py      # FF 实验脚本
-│   ├── visualize_results.py      # 可视化脚本
-│   ├── checkpoints/              # 预训练模型 (19 个)
-│   └── results/                  # 实验结果和图表
+│   ├── negative_strategies.py    # 6 negative strategy implementations
+│   ├── hub_models.py             # torch.hub model loader
+│   ├── run_ff_experiment.py      # FF experiment script
+│   ├── analyze_transfer.py       # Transfer analysis script
+│   ├── visualize_results.py      # Visualization script
+│   ├── checkpoints/              # Pretrained models (19 models)
+│   └── results/                  # Experiment results and figures
 ├── research/
-│   └── ff_research_plan.md       # 研究计划
-└── data/                         # CIFAR-10 数据集
+│   └── ff_research_plan.md       # Research plan
+└── data/                         # CIFAR-10 dataset
 ```
 
-## 快速开始
+## Quick Start
 
 ```bash
-# 1. 下载预训练模型
+# 1. Download pretrained models
 cd experiments
 python download_models.py --hub
 
-# 2. 运行实验
+# 2. Run experiments
 python run_ff_experiment.py
 
-# 3. 可视化结果
+# 3. Visualize results
 python visualize_results.py
+
+# 4. Analyze transfer bottleneck
+python analyze_transfer.py
 ```
 
-## Negative 策略说明
+## Negative Strategy Descriptions
 
-| 策略 | 描述 |
-|------|------|
-| `random` | 随机选择一个非真实类别 |
-| `least_likely` | 选择预测概率最低的类别 |
-| `most_confusing` | 选择非真实类别中概率最高的（最易混淆） |
-| `semantic` | 基于语义相似性选择（如 cat→dog） |
-| `multi_target` | 同时向多个高概率类别优化 |
-| `dynamic_topk` | 动态惩罚 top-k 高概率非目标类别 |
+| Strategy | Description |
+|----------|-------------|
+| `random` | Randomly select a non-true class |
+| `least_likely` | Select the class with lowest prediction probability |
+| `most_confusing` | Select the class with highest probability among non-true classes |
+| `semantic` | Select based on semantic similarity (e.g., cat→dog) |
+| `multi_target` | Optimize towards multiple high-probability classes |
+| `dynamic_topk` | Dynamically penalize top-k high-probability non-target classes |
 
-## 参考文献
+## References
 
-- [TransferAttack](https://github.com/Trustworthy-AI-Group/TransferAttack) - 迁移攻击框架
-- [TAA-Bench](https://github.com/KxPlaug/TAA-Bench) - 迁移攻击 benchmark
-- [pytorch-cifar-models](https://github.com/chenyaofo/pytorch-cifar-models) - 预训练模型
+- [TransferAttack](https://github.com/Trustworthy-AI-Group/TransferAttack) - Transfer attack framework
+- [TAA-Bench](https://github.com/KxPlaug/TAA-Bench) - Transfer attack benchmark
+- [pytorch-cifar-models](https://github.com/chenyaofo/pytorch-cifar-models) - Pretrained models
 
 ## License
 
