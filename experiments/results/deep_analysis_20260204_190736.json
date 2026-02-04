@@ -1,0 +1,102 @@
+{
+  "cross_architecture": {
+    "resnet56": {
+      "resnet20": {
+        "target_success": 0.12333333492279053,
+        "misclass": 0.44333332777023315,
+        "same_family": true
+      },
+      "vgg13_bn": {
+        "target_success": 0.1066666692495346,
+        "misclass": 0.3933333456516266,
+        "same_family": false
+      },
+      "shufflenetv2_x1_0": {
+        "target_success": 0.09000000357627869,
+        "misclass": 0.4399999976158142,
+        "same_family": false
+      },
+      "repvgg_a0": {
+        "target_success": 0.08666666597127914,
+        "misclass": 0.3933333456516266,
+        "same_family": false
+      }
+    },
+    "vgg16_bn": {
+      "resnet20": {
+        "target_success": 0.08666666597127914,
+        "misclass": 0.4166666567325592,
+        "same_family": false
+      },
+      "vgg13_bn": {
+        "target_success": 0.06666667014360428,
+        "misclass": 0.4033333361148834,
+        "same_family": true
+      },
+      "shufflenetv2_x1_0": {
+        "target_success": 0.08666666597127914,
+        "misclass": 0.4300000071525574,
+        "same_family": false
+      },
+      "repvgg_a0": {
+        "target_success": 0.06666667014360428,
+        "misclass": 0.38333332538604736,
+        "same_family": false
+      }
+    },
+    "mobilenetv2_x1_0": {
+      "resnet20": {
+        "target_success": 0.13333334028720856,
+        "misclass": 0.39666667580604553,
+        "same_family": false
+      },
+      "vgg13_bn": {
+        "target_success": 0.11666666716337204,
+        "misclass": 0.3933333456516266,
+        "same_family": false
+      },
+      "shufflenetv2_x1_0": {
+        "target_success": 0.11666666716337204,
+        "misclass": 0.41999998688697815,
+        "same_family": false
+      },
+      "repvgg_a0": {
+        "target_success": 0.10000000149011612,
+        "misclass": 0.34333333373069763,
+        "same_family": false
+      }
+    }
+  },
+  "epsilon_impact": {
+    "0.00784313725490196": {
+      "whitebox": 0.09666666388511658,
+      "vgg16_bn": 0.10333333164453506,
+      "mobilenetv2_x1_0": 0.09666666388511658
+    },
+    "0.01568627450980392": {
+      "whitebox": 0.09666666388511658,
+      "vgg16_bn": 0.09666666388511658,
+      "mobilenetv2_x1_0": 0.09000000357627869
+    },
+    "0.03137254901960784": {
+      "whitebox": 0.07666666805744171,
+      "vgg16_bn": 0.10000000149011612,
+      "mobilenetv2_x1_0": 0.07999999821186066
+    },
+    "0.06274509803921569": {
+      "whitebox": 0.0833333358168602,
+      "vgg16_bn": 0.09333333373069763,
+      "mobilenetv2_x1_0": 0.07999999821186066
+    },
+    "0.12549019607843137": {
+      "whitebox": 0.07999999821186066,
+      "vgg16_bn": 0.09333333373069763,
+      "mobilenetv2_x1_0": 0.07999999821186066
+    }
+  },
+  "gradient_divergence": {
+    "source_conv_layers": 57,
+    "target_conv_layers": 13,
+    "input_grad_similarity": 0.0004995904746465385
+  }
+}

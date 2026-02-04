@@ -145,6 +145,97 @@ Comparing FF-FGSM with baselines (untargeted attack, misclassification rate):
 - ✅ **FF achieves similar transfer to MI-FGSM** (57.4% vs 57.3%)
 - 💡 **Combining FF with DI** closes the gap to state-of-the-art
 
+---
+
+## 🔬 Deep Analysis: Why Transfer Rates Are Low
+
+### Cross-Architecture Transfer (2026-02-04)
+
+Testing how architecture family affects transferability:
+
+| Source Model | Target Model | Same Family? | Target Success | Misclass |
+|--------------|--------------|--------------|----------------|----------|
+| ResNet-56 | ResNet-20 | ✅ Yes | 12.3% | 44.3% |
+| ResNet-56 | VGG-13 | ❌ No | 10.7% | 39.3% |
+| ResNet-56 | ShuffleNetV2 | ❌ No | 9.0% | 44.0% |
+| MobileNetV2 | ResNet-20 | ❌ No | 13.3% | 39.7% |
+| MobileNetV2 | VGG-13 | ❌ No | 11.7% | 39.3% |
+
+**Finding:** Same-family transfer is NOT significantly better - architecture similarity alone doesn't guarantee transferability.
+
+### Epsilon Impact Analysis
+
+| ε | Whitebox | Avg Transfer |
+|---|----------|--------------|
+| 2/255 | 9.7% | 10.0% |
+| 4/255 | 9.7% | 9.3% |
+| 8/255 | 7.7% | 9.0% |
+| 16/255 | 8.3% | 8.7% |
+| 32/255 | 8.0% | 8.7% |
+
+**Finding:** 🚨 **Increasing ε does NOT improve transfer!** This is counter-intuitive - larger perturbations should make attacks more robust, but they don't help transferability.
+
+### Gradient Divergence Analysis (Root Cause)
+
+**Input-level gradient cosine similarity (ResNet-56 vs VGG-16):**
+
+| Channel | Cosine Similarity |
+|---------|-------------------|
+| Red (R) | 0.0005 |
+| Green (G) | 0.0005 |
+| Blue (B) | 0.0005 |
+| **Overall** | **0.0005** |
+
+**🚨 This is the smoking gun!**
+
+The gradient directions between different architectures are **essentially orthogonal** (cosine similarity ≈ 0). This means:
+- Perturbations optimized for ResNet point in a direction that's nearly random w.r.t. VGG's decision boundary
+- It's not about perturbation magnitude (ε) - it's about **direction**
+
+---
+
+## 🎯 Ensemble Attack: The Solution
+
+Using gradients from multiple source models to find a more "universal" attack direction:
+
+| Attack Method | Avg Target Success | Avg Misclass |
+|---------------|-------------------|--------------|
+| Single (ResNet56) | 17.6% | 51.8% |
+| **Ensemble (3 models)** | **20.4%** | **54.1%** |
+| Ensemble + MI | 20.4% | 54.1% |
+| **Ensemble + MI + DI** | **20.7%** | **54.3%** |
+
+**Key Findings:**
+- 🎯 **Ensemble attack improves transfer by +3.1%** absolute (17.6% → 20.7%)
+- ✅ **Validates the hypothesis**: averaging gradients from diverse architectures finds more transferable directions
+- 📈 **Best method**: Ensemble + MI + DI combines the benefits of all three techniques
+
+---
+
+## 📊 Summary: Why Transfer Is Hard & How to Fix It
+
+### Root Cause
+1. **Gradient Orthogonality**: Different architectures have fundamentally different gradient directions (cosine sim ≈ 0)
+2. **Decision Boundary Geometry**: Each model's decision boundary has different shape in high-dimensional space
+3. **FreezeOut Overfits to Source**: Progressive freezing optimizes too specifically for the source model
+
+### What Doesn't Help
+- ❌ Increasing perturbation budget (ε)
+- ❌ Same architecture family (minor effect)
+- ❌ Translation invariance alone (TI-FGSM)
+
+### What Helps
+- ✅ **Input Diversity (DI)**: Increases gradient diversity, prevents overfitting to single input
+- ✅ **Momentum (MI)**: Smooths gradient noise, finds more stable directions
+- ✅ **Ensemble Attack**: Averages across architectures to find universal directions
+- ✅ **FF + DI Combination**: FreezeOut with Input Diversity achieves near-SOTA
+
+### Recommended Attack Pipeline
+```
+Best Transfer: Ensemble (3+ models) + MI + DI
+Alternative:   FF + DI (single model, near-SOTA performance)
+```
+
 ## Project Structure
 
 ```

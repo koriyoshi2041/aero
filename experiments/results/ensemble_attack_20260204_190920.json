@@ -1,0 +1,90 @@
+{
+  "Single (ResNet56)": {
+    "resnet20": {
+      "target_success": 0.20666666328907013,
+      "misclass": 0.5866666436195374
+    },
+    "vgg13_bn": {
+      "target_success": 0.1666666716337204,
+      "misclass": 0.49000000953674316
+    },
+    "shufflenetv2_x1_0": {
+      "target_success": 0.14666666090488434,
+      "misclass": 0.5233333110809326
+    },
+    "repvgg_a0": {
+      "target_success": 0.18333333730697632,
+      "misclass": 0.47333332896232605
+    },
+    "average": {
+      "target_success": 0.1758333332836628,
+      "misclass": 0.5183333232998848
+    }
+  },
+  "Ensemble (3 models)": {
+    "resnet20": {
+      "target_success": 0.22333332896232605,
+      "misclass": 0.6066666841506958
+    },
+    "vgg13_bn": {
+      "target_success": 0.1966666728258133,
+      "misclass": 0.503333330154419
+    },
+    "shufflenetv2_x1_0": {
+      "target_success": 0.18000000715255737,
+      "misclass": 0.5533333420753479
+    },
+    "repvgg_a0": {
+      "target_success": 0.21666666865348816,
+      "misclass": 0.5
+    },
+    "average": {
+      "target_success": 0.20416666939854622,
+      "misclass": 0.5408333390951157
+    }
+  },
+  "Ensemble + MI": {
+    "resnet20": {
+      "target_success": 0.22333332896232605,
+      "misclass": 0.6066666841506958
+    },
+    "vgg13_bn": {
+      "target_success": 0.1966666728258133,
+      "misclass": 0.503333330154419
+    },
+    "shufflenetv2_x1_0": {
+      "target_success": 0.18000000715255737,
+      "misclass": 0.5533333420753479
+    },
+    "repvgg_a0": {
+      "target_success": 0.21666666865348816,
+      "misclass": 0.5
+    },
+    "average": {
+      "target_success": 0.20416666939854622,
+      "misclass": 0.5408333390951157
+    }
+  },
+  "Ensemble + MI + DI": {
+    "resnet20": {
+      "target_success": 0.22333332896232605,
+      "misclass": 0.6033333539962769
+    },
+    "vgg13_bn": {
+      "target_success": 0.1966666728258133,
+      "misclass": 0.49666666984558105
+    },
+    "shufflenetv2_x1_0": {
+      "target_success": 0.18666666746139526,
+      "misclass": 0.5633333325386047
+    },
+    "repvgg_a0": {
+      "target_success": 0.2199999988079071,
+      "misclass": 0.5099999904632568
+    },
+    "average": {
+      "target_success": 0.20666666701436043,
+      "misclass": 0.5433333367109299
+    }
+  }
+}
